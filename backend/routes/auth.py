@@ -4,6 +4,7 @@ from werkzeug.security import (generate_password_hash,
                                check_password_hash)
 from ..forms import Signup, Login
 from ..models import db, User
+from flask_login import login_user
 
 auth = Blueprint("auth", __name__)
 
@@ -22,7 +23,11 @@ def login_post():
         if not existing_user or not check_password_hash(existing_user.password,
                                                         user.password):
             return "LOGIN NO BUENO MY DUDES"
-        return redirect(url_for("main.profile"))
+        # Note that providing remember=remember, where remember is bool will
+        # login_user(user, remember=True) ??
+        # allow for peristent sessions!
+        login_user(existing_user)
+    return redirect(url_for("main.profile"))
 
 
 @auth.route("/signup")
