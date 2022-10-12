@@ -22,4 +22,5 @@ def undo():
 
 @seed_commands.command("restore")
 def restore():
+    db.drop_all()
     db.create_all()

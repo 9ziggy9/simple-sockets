@@ -1,5 +1,5 @@
 from flask import (Blueprint, render_template,
-                   redirect, url_for)
+                   redirect, url_for, flash)
 from werkzeug.security import (generate_password_hash,
                                check_password_hash)
 from ..forms import Signup
@@ -24,13 +24,12 @@ def signup_post():
         form.populate_obj(user)
         existing_user = User.query.filter_by(name=user.name).first()
         if existing_user:
-            return "User exists!"
+            return "User done existed"
         new_user = User(name=user.name,
                         password=generate_password_hash(user.password))
         db.session.add(new_user)
         db.session.commit()
-        return new_user.to_dict()
-    return "Bad Data"
+    return redirect(url_for("auth.login"))
 
 @auth.route("/logout")
 def logout():
