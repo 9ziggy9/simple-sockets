@@ -1,9 +1,9 @@
-from flask import (Blueprint,
-                   render_template,
-                   redirect,
-                   url_for)
+from flask import (Blueprint, render_template,
+                   redirect, url_for)
+from werkzeug.security import (generate_password_hash,
+                               check_password_hash)
 from ..forms import Signup
-from ..models import User
+from ..models import db, User
 
 auth = Blueprint("auth", __name__)
 
@@ -25,7 +25,11 @@ def signup_post():
         existing_user = User.query.filter_by(name=user.name).first()
         if existing_user:
             return "User exists!"
-        return user.to_dict()
+        new_user = User(name=user.name,
+                        password=generate_password_hash(user.password))
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict()
     return "Bad Data"
 
 @auth.route("/logout")
