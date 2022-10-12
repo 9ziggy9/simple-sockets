@@ -2,7 +2,7 @@ from flask import Flask
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .seeders import seed_commands, select_commands
+from .commands import seed_commands, select_commands
 
 from .models import db
 from .routes import auth as auth_blueprint
