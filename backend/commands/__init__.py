@@ -1,8 +1,9 @@
 from ..models import db, User
 from flask.cli import AppGroup
+from werkzeug.security import generate_password_hash
 
 def seed_users():
-    debug = User(name="debug",password="debug")
+    debug = User(name="debug",password=generate_password_hash("debug"))
     db.session.add(debug)
     db.session.commit()
 
