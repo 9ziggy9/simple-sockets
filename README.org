@@ -1,5 +1,15 @@
 * Simple Flask/React SocketIO App
 ** Backend
+*** Dependencies
+- flask
+- flask-login
+- flask-sqlalchemy
+- flask-migrate
+- flask-wtf
+- python-dotenv
+- sqlalchemy
+- alembic
+- wtforms
 * SOURCES
 ** Authentication
 https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
