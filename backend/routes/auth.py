@@ -22,8 +22,10 @@ def signup_post():
     if form.validate_on_submit():
         user = User()
         form.populate_obj(user)
-        print(user)
-        return redirect(url_for("auth.login"))
+        existing_user = User.query.filter_by(name=user.name).first()
+        if existing_user:
+            return "User exists!"
+        return user.to_dict()
     return "Bad Data"
 
 @auth.route("/logout")
