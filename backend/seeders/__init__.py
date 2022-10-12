@@ -11,7 +11,6 @@ def undo_users():
     db.session.commit()
 
 seed_commands = AppGroup("seed")
-
 @seed_commands.command("all")
 def seed():
     seed_users()
@@ -24,3 +23,10 @@ def undo():
 def restore():
     db.drop_all()
     db.create_all()
+
+select_commands = AppGroup("select")
+@select_commands.command("users")
+def select_users():
+    print("Printing all users...")
+    users = db.engine.execute("SELECT * FROM users")
+    print(users.fetchall())

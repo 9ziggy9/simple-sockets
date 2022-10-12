@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-printf "Running SQLite command:\n"
-echo "$1"
-echo "$1" | sqlite3 instance/dev.db

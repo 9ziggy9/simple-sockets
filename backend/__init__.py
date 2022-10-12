@@ -2,7 +2,7 @@ from flask import Flask
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .seeders import seed_commands
+from .seeders import seed_commands, select_commands
 
 from .models import db
 from .routes import auth as auth_blueprint
@@ -19,5 +19,6 @@ def create_app():
     app.register_blueprint(main_blueprint, url_prefix="/api")
 
     app.cli.add_command(seed_commands)
+    app.cli.add_command(select_commands)
 
     return app
