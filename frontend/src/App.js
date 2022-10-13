@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import './index.css';
+import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 
 function App() {
   return (
