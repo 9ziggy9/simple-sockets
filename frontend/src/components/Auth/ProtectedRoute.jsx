@@ -7,7 +7,7 @@ const ProtectedRoute = props => {
   // const user = useSelector(state => state.session.user);
   return (
     <Route {...props}>
-      {false ? props.children : <Navigate to="/" />}
+      {false ? props.children : <Navigate to="/hello" />}
       {/* {user ? props.children : <Redirect to="/login" />} */}
     </Route>
   );
