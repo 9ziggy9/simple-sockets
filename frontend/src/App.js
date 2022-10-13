@@ -6,13 +6,19 @@ import {Outlet, Link} from "react-router-dom";
 function App() {
   return (
     <>
-      <nav>
-	<Link to="/hello">Hello</Link>
-	<Link to="/world">World</Link>
-      </nav>
+      <Navigation />
       <h1>Hello, World</h1>
       <Outlet />
     </>
+  );
+}
+
+function Navigation() {
+  return (
+    <nav>
+      <Link to="/hello">Hello</Link>
+      <Link to="/world">World</Link>
+    </nav>
   );
 }
 
