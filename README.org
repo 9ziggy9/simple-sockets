@@ -10,12 +10,21 @@
 - sqlalchemy
 - alembic
 - wtforms
+** Frontend
+*** Dependencies
+- react 18
+- react-router-dom
+- react-redux <--- see docs, v6 has new stuff
+- redux-thunk
+   
 * SOURCES
 ** Authentication
 https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
 ** Flask-WTF
 *** Quickstart
 https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/#creating-forms
+** React Router
+https://reactrouter.com/en/v6.3.0/getting-started/tutorial
 
 * TODO
 - Migrate to pico.CSS?

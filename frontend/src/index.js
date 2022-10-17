@@ -6,6 +6,8 @@ import App from './App';
 import Hello from "./components/Sandbox/Hello.jsx";
 import World from "./components/Sandbox/World.jsx";
 import NumWorld from "./components/Sandbox/NumWorld.jsx";
+import LoginForm from "./components/Forms/LoginForm.jsx";
+
 // Basically provides browser router context
 import {
   BrowserRouter,
@@ -25,7 +27,7 @@ root.render(
           </Route>
           <Route path="*" element={<h1>404: NOTHING TO SEE HERE</h1>}/>
         </Route>
-        <Route path="/debug" element={<h1>ENTERING DEBUG MODE</h1>}/>
+        <Route path="/debug" element={<LoginForm />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
