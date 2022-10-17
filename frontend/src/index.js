@@ -17,20 +17,27 @@ import {
   Route,
 } from "react-router-dom";
 
+// REDUX store
+import configureStore from "./store";
+import {Provider} from "react-redux";
+const store = configureStore();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-	<Route path="/" element={<App />} >
-	  <Route path="hello" element={<Hello />} />
-	  <Route path="world" element={<World />}>
-            <Route path=":worldId" element={<NumWorld />}/>
-          </Route>
-          <Route path="*" element={<h1>404: NOTHING TO SEE HERE</h1>}/>
-        </Route>
-        <Route path="/debug" element={<SignupForm />}/>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+	<Routes>
+	  <Route path="/" element={<App />} >
+	    <Route path="hello" element={<Hello />} />
+	    <Route path="world" element={<World />}>
+	      <Route path=":worldId" element={<NumWorld />}/>
+	    </Route>
+	    <Route path="*" element={<h1>404: NOTHING TO SEE HERE</h1>}/>
+	  </Route>
+	  <Route path="/debug" element={<SignupForm />}/>
+	</Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>
 );

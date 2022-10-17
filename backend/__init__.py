@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from .commands import seed_commands, select_commands
 from flask_login import LoginManager
+from flask_cors import CORS
 
 from .models import db, User
 from .routes import auth as auth_blueprint
@@ -17,15 +18,21 @@ def create_app():
     db.init_app(app)
     Migrate(app, db)
 
-    app.register_blueprint(auth_blueprint, url_prefix="/api")
+    # CORS policy takes all cross-site origins! See docs for ammendments.
+    CORS(app)
+
+    app.register_blueprint(auth_blueprint, url_prefix="/api/auth")
     app.register_blueprint(main_blueprint, url_prefix="/api")
 
     app.cli.add_command(seed_commands)
     app.cli.add_command(select_commands)
 
-    login_manager = LoginManager()
-    login_manager.login_view = "auth.login"
-    login_manager.init_app(app)
+    login_manager = LoginManager(app)
+    login_manager.login_view = "auth.unauthorized"
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     # Build docs from docstrings in view functions!
     # @app.route("/api/help", methods = ["GET"])

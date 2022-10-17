@@ -3,7 +3,7 @@ from flask.cli import AppGroup
 from werkzeug.security import generate_password_hash
 
 def seed_users():
-    debug = User(name="debug",password=generate_password_hash("debug"))
+    debug = User(name="debug",password="debug")
     db.session.add(debug)
     db.session.commit()
 

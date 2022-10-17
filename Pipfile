@@ -13,6 +13,7 @@ python-dotenv = "*"
 sqlalchemy = "*"
 alembic = "*"
 wtforms = "*"
+flask-cors = "*"
 
 [dev-packages]
 
