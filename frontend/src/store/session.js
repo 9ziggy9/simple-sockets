@@ -12,7 +12,7 @@ const removeUser = () => ({
 });
 
 export const authenticate = () => async (dispatch) => {
-  const response = await fetch("/api/auth", {
+  const response = await fetch("/api/auth/", {
     headers: {"Content-Type": "application/json"},
   });
   if (response.ok) {
@@ -26,11 +26,11 @@ export const authenticate = () => async (dispatch) => {
   }
 };
 
-export const login = (username, password) => async (dispatch) => {
+export const login = (name, password) => async (dispatch) => {
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({username, password}),
+    body: JSON.stringify({name, password}),
   });
   if (response.ok) {
     const data = await response.json();

@@ -6,24 +6,24 @@ import {login} from "../../store/session";
 
 function LoginForm() {
   const {handleModal} = useContext(ModalContext);
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const loginHandler = async (e) => {
+  const loginHandler = (e) => {
     e.preventDefault();
-    const data = await dispatch((login(username, password)));
+    dispatch((login(name, password)));
     handleModal(); // Close modal
   };
 
   return (
     <form onSubmit={loginHandler}>
       <input type="text"
-             name="username"
+             name="name"
 	     autoComplete="off"
-             placeholder="username"
-             value={username}
-             onChange={e => setUsername(e.target.value)}/>
+             placeholder="name"
+             value={name}
+             onChange={e => setName(e.target.value)}/>
       <br/>
       <input type="password"
              name="password"

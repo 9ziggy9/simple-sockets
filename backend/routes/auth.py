@@ -1,5 +1,5 @@
 from flask import (Blueprint, render_template,
-                   redirect, url_for, flash)
+                   redirect, url_for, flash, request)
 from werkzeug.security import (generate_password_hash,
                                check_password_hash)
 from ..forms import Signup, Login
@@ -9,39 +9,36 @@ from flask_login import (login_user, logout_user,
 
 auth = Blueprint("auth", __name__)
 
-@auth.route("/login")
-def login():
-    form = Login()
-    return render_template("login.html", form=form)
+# template route
+# @auth.route("/login")
+# def login():
+#     form = Login()
+#     return render_template("login.html", form=form)
 
 @auth.route("/")
 def authenticate():
     """Authenticates a user"""
-    print("CURRENT USER", current_user)
+    print("CURRENT USER", current_user.to_dict())
     if current_user.is_authenticated:
-        print("NO USER!")
+        print("AUTHENTICATED!")
         return current_user.to_dict()
     return {"errors": ["Unauthorized"]}
+
+@auth.route("/unauthorized")
+def unauthorized():
+    """Returns unauthorized JSON when flask-login auth fails"""
+    return {"errors": ["Unauthorized"]}, 401
 
 @auth.route("/login", methods=["POST"])
 def login_post():
     """Logs a user in"""
     form = Login()
     # NOTE: validate_on_submit will NOT work if we do not inject csrf_token!
+    form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        user = User()
-        form.populate_obj(user)
-        existing_user = User.query.filter_by(name=user.name).first()
-        if not existing_user or not check_password_hash(existing_user.password,
-                                                        user.password):
-            print("EXISINTG USER IF HIT", existing_user.to_dict())
-            return {"error": "NO BUENO"}
-        # Note that providing remember=remember, where remember is bool will
-        # login_user(user, remember=True) ??
-        # allow for peristent sessions!
-        login_user(existing_user)
-        print(current_user.to_dict())
-        return existing_user.to_dict()
+        user = User.query.filter(User.name == form.data["name"]).first()
+        login_user(user)
+        return user.to_dict()
     return {"error": "FORM VALIDATION ERROR"}
 
 @auth.route("/logout")
