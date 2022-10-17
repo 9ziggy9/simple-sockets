@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import './index.css';
 import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
@@ -23,12 +24,21 @@ function App() {
 function Auth() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(authenticate());
-  }, [dispatch]);
+    // One can easily verify with network throttling that if this is
+    // not wrapped in an IIFE then a race-condition is possible.
+    (async () => {
+      await dispatch(authenticate());
+      setLoaded(true);
+    })();
+  }, []);
+
+  if (!loaded) return (<h2>... loading ...</h2>);
 
   const handleLogout = () => dispatch(logout());
+
   return (
     <div>
       {user ? (<button onClick={handleLogout}>Logout</button>) : (

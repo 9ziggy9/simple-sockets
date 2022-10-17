@@ -18,9 +18,7 @@ auth = Blueprint("auth", __name__)
 @auth.route("/")
 def authenticate():
     """Authenticates a user"""
-    print("CURRENT USER", current_user.to_dict())
     if current_user.is_authenticated:
-        print("AUTHENTICATED!")
         return current_user.to_dict()
     return {"errors": ["Unauthorized"]}
 

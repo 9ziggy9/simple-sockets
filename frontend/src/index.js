@@ -22,10 +22,11 @@ import configureStore from "./store";
 import {Provider} from "react-redux";
 const store = configureStore();
 
+// PLEASE NOTE: React.StrictMode causes two renders in dev env.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
 	<Routes>
 	  <Route path="/" element={<App />} >
@@ -38,6 +39,6 @@ root.render(
 	  <Route path="/debug" element={<SignupForm />}/>
 	</Routes>
       </BrowserRouter>
-    </React.StrictMode>
-  </Provider>
+    </Provider>
+  </React.StrictMode>
 );

@@ -17,7 +17,6 @@ export const authenticate = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log("PARSED API DATA", data);
     if (data.errors) {
       console.log(data.errors);
       return;
@@ -34,7 +33,8 @@ export const login = (name, password) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
+    dispatch(setUser(data));
+    return;
   }
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {useState, useContext} from "react";
 import {ModalContext} from "../../modal";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../store/session";
 
 function LoginForm() {
@@ -10,9 +10,9 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    dispatch((login(name, password)));
+    const data = await dispatch((login(name, password)));
     handleModal(); // Close modal
   };
 
