@@ -15,12 +15,10 @@ auth = Blueprint("auth", __name__)
 #     form = Login()
 #     return render_template("login.html", form=form)
 
-def generate_error_messages(errors):
-    """
-    Simple  function that turns the WTForms validation errors in a simple list
-    """
-    return [f"{field} : {error}" for (field, error)
-            in ()]
+def gen_err_response(form_errors):
+    return [f"{k}: {err}"
+            for k,errs in form_errors.items()
+            for err in errs]
 
 @auth.route("/")
 def authenticate():
@@ -38,13 +36,12 @@ def unauthorized():
 def login_post():
     """Logs a user in"""
     form = Login()
-    # NOTE: validate_on_submit will NOT work if we do not inject csrf_token!
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         user = User.query.filter(User.name == form.data["name"]).first()
         login_user(user)
-        return user.to_dict()
-    return {"error": "FORM VALIDATION ERROR"}
+        return user.to_dict(), 200
+    return {"errors": gen_err_response(form.errors)}, 401
 
 @auth.route("/logout")
 def logout():

@@ -13,6 +13,7 @@ function LoginForm() {
   const loginHandler = async (e) => {
     e.preventDefault();
     const data = await dispatch((login(name, password)));
+    console.log(data);
     handleModal(); // Close modal
   };
 

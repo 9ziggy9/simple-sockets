@@ -30,11 +30,9 @@ export const login = (name, password) => async (dispatch) => {
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({name, password}),
   });
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(setUser(data));
-    return;
-  }
+  const data = await response.json();
+  if (response.ok) dispatch(setUser(data));
+  return data;
 };
 
 export const logout = () => async (dispatch) => {
