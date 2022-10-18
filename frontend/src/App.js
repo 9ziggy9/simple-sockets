@@ -13,15 +13,15 @@ import {logout, authenticate} from "./store/session";
 function App() {
   return (
     <>
-      <Nav />
-      <Auth />
+      <NavBar />
+      <AuthBar />
       <h1>Hello, World</h1>
       <Outlet />
     </>
   );
 }
 
-function Auth() {
+function AuthBar() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const [loaded, setLoaded] = useState(false);
@@ -51,7 +51,7 @@ function Auth() {
   );
 }
 
-function Nav() {
+function NavBar() {
   return (
     <nav>
       <Link to="/hello">Hello</Link>

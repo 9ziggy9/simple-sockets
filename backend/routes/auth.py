@@ -15,6 +15,13 @@ auth = Blueprint("auth", __name__)
 #     form = Login()
 #     return render_template("login.html", form=form)
 
+def generate_error_messages(errors):
+    """
+    Simple  function that turns the WTForms validation errors in a simple list
+    """
+    return [f"{field} : {error}" for (field, error)
+            in ()]
+
 @auth.route("/")
 def authenticate():
     """Authenticates a user"""
