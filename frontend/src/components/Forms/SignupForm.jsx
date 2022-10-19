@@ -19,10 +19,7 @@ function SignupForm() {
       return null;
     }
     const data = await dispatch(signup(username, password));
-    if (data.errors) {
-      console.log(data.errors); 
-      return null;
-    }
+    console.log(data);
     handleModal();
     return null;
   };
