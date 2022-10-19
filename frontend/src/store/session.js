@@ -44,6 +44,17 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const signup = (username, password) => async (dispatch) => {
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({username, password}),
+  });
+  const data = await response.json();
+  if (response.ok) dispatch(setUser(data));
+  return data;
+};
+
 const initialState = {user: null};
 
 export default function reducer(state = initialState, action) {

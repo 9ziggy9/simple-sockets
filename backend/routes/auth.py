@@ -57,14 +57,13 @@ def signup():
 @auth.route("/signup", methods=["POST"])
 def signup_post():
     form = Signup()
+    form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        user = User()
-        form.populate_obj(user)
-        existing_user = User.query.filter_by(name=user.name).first()
-        if existing_user:
-            return "User done existed"
-        new_user = User(name=user.name,
-                        password=generate_password_hash(user.password))
+        unsafe_user = User()
+        form.populate_obj(unsafe_user)
+        new_user = User(name=unsafe_user.username,
+                        password=generate_password_hash(unsafe_user.password))
         db.session.add(new_user)
         db.session.commit()
-    return redirect(url_for("auth.login"))
+        return new_user.to_dict(), 200
+    return {"errors": gen_err_response(form.errors)}, 401
