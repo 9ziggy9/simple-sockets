@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {useState, useContext} from "react";
+import "./index.css";
 import {ModalContext} from "../../modal";
 import {signup} from "../../store/session.js";
 import {useDispatch} from "react-redux";
@@ -27,30 +28,32 @@ function SignupForm() {
   };
 
   return (
-    <form onSubmit={signupHandler}>
-      <input type="text"
-             name="username"
-	     autoComplete="off"
-             placeholder="username"
-             value={username}
-             onChange={e => setUsername(e.target.value)}/>
-      <br/>
-      <input type="password"
-             name="password"
-	     autoComplete="off"
-             placeholder="password"
-             value={password}
-             onChange={e => setPassword(e.target.value)}/>
-      <br/>
-      <input type="password"
-             name="repeatPass"
-	     autoComplete="off"
-             placeholder="repeat password"
-             value={repeatPass}
-             onChange={e => setRepeatPass(e.target.value)}/>
-      <br/>
-      <input type="submit" name="submit"/>
-    </form>
+    <div className="form-container">
+      <form onSubmit={signupHandler}>
+	<input type="text"
+	      name="username"
+	      autoComplete="off"
+	      placeholder="username"
+	      value={username}
+	      onChange={e => setUsername(e.target.value)}/>
+	<br/>
+	<input type="password"
+	      name="password"
+	      autoComplete="off"
+	      placeholder="password"
+	      value={password}
+	      onChange={e => setPassword(e.target.value)}/>
+	<br/>
+	<input type="password"
+	      name="repeatPass"
+	      autoComplete="off"
+	      placeholder="repeat password"
+	      value={repeatPass}
+	      onChange={e => setRepeatPass(e.target.value)}/>
+	<br/>
+	<input type="submit" name="submit"/>
+      </form>
+    </div>
   );
 };
 
